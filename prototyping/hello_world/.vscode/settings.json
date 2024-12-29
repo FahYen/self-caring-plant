@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "freertos.h": "c",
+        "task.h": "c",
+        "sdkconfig.h": "c",
+        "inttypes.h": "c",
+        "esp_system.h": "c"
+    }
+}
