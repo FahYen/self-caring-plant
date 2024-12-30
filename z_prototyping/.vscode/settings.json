@@ -1,6 +1,8 @@
 {
   "files.associations": {
     "*.ejs": "html",
-    "gpio.h": "c"
+    "gpio.h": "c",
+    "stdio.h": "c",
+    "esp_camera.h": "c"
   }
 }
