@@ -1,0 +1,1 @@
+For prototyping sensing soil moisture level and using the information to control water pump. No sequential logic involved in prototype. If moisture level below certain threshold, turns on pump. On actual product, only turns on when soil has been dry for a prolonged period of time, which requires memory storage.

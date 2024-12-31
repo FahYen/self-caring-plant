@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "esp_adc/adc_oneshot.h"
-#include "freertos/task.h"
+#include "freertos/FreeRTOS.h" // opearting system
+#include "esp_adc/adc_oneshot.h" // ADC driver
+#include "freertos/task.h"  // vTaskDelay
 
 void app_main(void)
 {
@@ -42,4 +42,3 @@ void app_main(void)
         vTaskDelay(portTICK_PERIOD_MS * 2); // two seconds
     }
 }
-
