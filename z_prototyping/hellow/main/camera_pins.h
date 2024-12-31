@@ -1,5 +1,5 @@
-#ifndef CAMERA_PINS
-#define CAMERA_PINS
+#ifndef CAMERA_PINS_H_
+#define CAMERA_PINS_H_
 
 #define USE_BOARD_HEADER 0
 #define PWDN_GPIO_NUM    32

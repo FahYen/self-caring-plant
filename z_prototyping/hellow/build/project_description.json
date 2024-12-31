@@ -1195,7 +1195,7 @@
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/aneek/self-caring-plant/z_prototyping/hellow/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/Users/aneek/self-caring-plant/z_prototyping/hellow/main/CameraStream.c" ],
+            "sources": [ "C:/Users/aneek/self-caring-plant/z_prototyping/hellow/main/CameraStream.c", "C:/Users/aneek/self-caring-plant/z_prototyping/hellow/main/connect_wifi.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {
