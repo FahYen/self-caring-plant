@@ -1,3 +1,6 @@
+# ignore all folders called build
+build/
+
 # Prerequisites
 *.d
 
