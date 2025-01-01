@@ -12,6 +12,6 @@ static esp_timer_handle_t period_timer;
 static nvs_handle_t flash_memory;
 
 static uint8_t key = 0;              // key for Flash read and write
-static uint16_t MAX_MOISTURE = 1300;
-static uint16_t MIN_MOISTRUE = 3150;
+static uint16_t MAX_MOISTURE = 100;
+static uint16_t MIN_MOISTRUE = 0;
 
