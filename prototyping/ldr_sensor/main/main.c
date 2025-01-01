@@ -38,7 +38,7 @@ void app_main(void)
         // Measure the ADC value
         ESP_ERROR_CHECK(adc_oneshot_read(adc_handle, ADC_CHANNEL_5, &Dout));
         Vout = Dout * Vmax / Dmax;
-        printf("Dout: %.3f\n", Vout);
-        vTaskDelay(portTICK_PERIOD_MS * 2); // two seconds
+        printf("Vout: %.3f\n", Vout);
+        vTaskDelay(portTICK_PERIOD_MS * 20); // 2 seconds
     }
 }
