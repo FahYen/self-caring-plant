@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "gpio.h": "c",
+        "nvs_flash.h": "c",
+        "freertos.h": "c"
+    }
+}
