@@ -17,16 +17,23 @@ void app_main(void) {
 
     adc_oneshot_chan_cfg_t adc_channel = {
         .atten = ADC_ATTEN_DB_12,
-        .bitwidth = ADC_BITWIDTH_DEFAULT,
+        .bitwidth = ADC_BITWIDTH_12,
     };
     ESP_ERROR_CHECK(adc_oneshot_config_channel(adc_handle, ADC_CHANNEL, &adc_channel));
 
-
     while (1) {
         int Dout; // Dmax = 4095
+        // lowest reading 1300 in water
+        // highest reading 3200 in dry air
+        // add to tolerance
+        // set lower bound as 1200
+        // upper bound as 3300
+        // range = 3300 - 1200 = 2100;
         ESP_ERROR_CHECK(adc_oneshot_read(adc_handle, ADC_CHANNEL, &Dout));
-        printf("Moisture Reading: %d\n", Dout);
-        vTaskDelay(portTICK_PERIOD_MS * 3);
+        printf("Reading: %d\n", Dout);
+        int moisture_percent = (double) (2100 - (Dout - 1200)) / 2100 * 100;
+        printf("Percent: %d\n", moisture_percent);
+        vTaskDelay(portTICK_PERIOD_MS * 5);
     }
 
 }
