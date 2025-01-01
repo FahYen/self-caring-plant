@@ -4,7 +4,7 @@ dependencies:
   idf:
     version: ">=4.1.0"
   protocol_examples_common:
-    path: "C:/Users/aneek/esp/esp-idf/frameworks/esp-idf-v5.3.2/examples/common_components/protocol_examples_common"
+    path: "/home/fah/esp/esp-idf/examples/common_components/protocol_examples_common"
   # # Put list of dependencies here
   # # For components maintained by Espressif:
   # component: "~1.0.0"
