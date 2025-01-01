@@ -1,0 +1,1 @@
+Set up the target SoC by running idf.py set-target esp32 at the root of the project directory (wifi/)
