@@ -34,7 +34,7 @@ static nvs_handle_t flash_memory;
 static uint8_t key = 0;
 
 // to be fine-tuned or user set
-static uint8_t MAX_MOISTURE = 115;
+static uint8_t MAX_MOISTURE = 100;
 static uint8_t MIN_MOISTURE = 20;
 static uint8_t NUM_READINGS = 6;
 static adc_unit_t ADC_UNIT = ADC_UNIT_2;
@@ -92,10 +92,10 @@ static void init_storage() {
     ESP_ERROR_CHECK(nvs_open("storage", NVS_READWRITE, &flash_memory));
 }
 
-// set 6 moisture readings to be maximum, 3.3/2
+// set 6 moisture readings to be maximum
 static void reset_readings_storage() {
     char key_reset[2]; // C type string: i + '\0'
-    for (int i = 0; i < NUM_READINGS; i++) {
+    for (int i = 0; i < NUM_READINGS; i++) { // 0 to 5
         key_reset[0] = i + '0';
         key_reset[1] = '\0';
         ESP_ERROR_CHECK(nvs_set_u8(flash_memory, key_reset, MAX_MOISTURE));
@@ -158,7 +158,7 @@ uint8_t read_memory() {
         ESP_ERROR_CHECK(nvs_get_u8(flash_memory, key_read, &current_reading));
         sum += current_reading;
     }
-    return sum / MAX_MOISTURE;
+    return sum / NUM_READINGS;
 }
 
 void configure_pump_pin() {

@@ -2,6 +2,8 @@
     "files.associations": {
         "gpio.h": "c",
         "nvs_flash.h": "c",
-        "freertos.h": "c"
+        "freertos.h": "c",
+        "nvs.h": "c",
+        "esp_err.h": "c"
     }
 }
