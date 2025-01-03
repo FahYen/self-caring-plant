@@ -13,17 +13,16 @@ static esp_timer_handle_t periodic_timer;
 static nvs_handle_t flash_memory;
 
 static uint8_t key = 0;                           // key for Flash read and write
-static uint16_t MAX_MOISTURE = 100;              
-static uint16_t MIN_MOISTRUE = 0;
+static uint16_t MAX_MOISTURE = 100;
 static int MAX_READING = 3300;                    // in dry air
-static int MIN_READING = 1300;                    // submerged in water
+static int MIN_READING = 1200;                    // submerged in water
 
 // user-defined
 static adc_unit_t ADC_UNIT = ADC_UNIT_1;
 static adc_channel_t ADC_CHANNEL = ADC_CHANNEL_3; // GPIO4
 static gpio_num_t PUMP_GPIO = GPIO_NUM_6;
 static uint8_t NUM_READINGS = 6;
-static uint8_t WATER_DURATION = 5;                // seconds
+static uint8_t WATER_DURATION = 3;                // seconds
 static uint8_t MIN_WATER_THRESHOLD = 20;          // threshold is out of 100
 
 // FUNCTION DECLARATIONS
@@ -66,7 +65,7 @@ static void init_adc(void) {
 // Creates a timer instance with configs
 static void init_timer(void) {
     const esp_timer_create_args_t timer_args = {
-        .callback = ,
+        .callback = &timer_callback,
         .name = "moisture_sensor_reading",
         .dispatch_method = ESP_TIMER_TASK,
         .skip_unhandled_events = false
@@ -119,22 +118,32 @@ static void reset_readings_storage(void){
 // records information about moisture level and decides whether water is needed
 static void timer_callback(void* arg) {
     // measure and write moisture level
-    set_moisture_level(measure_moisture_level());
+    uint8_t current_moisture_level = measure_moisture_level();
+    printf("current moisture level on key %d: %d\n", key, current_moisture_level);
+    set_moisture_level(current_moisture_level);
     
     // update key
     update_key();
     
     // check if needs to water
-    if (get_average_moisture_level() < MIN_WATER_THRESHOLD) {
+    uint8_t average_moisture_level = get_average_moisture_level();
+    printf("average moisture level: %d\n", average_moisture_level);
+    if (average_moisture_level < MIN_WATER_THRESHOLD) {
         water();
+        printf("start resetting storage\n");
         reset_readings_storage();
+        printf("done resetting storage\n");
     }
 }
 
 // activates pump for time of WATER_DURATION, then turns off
 static void water(void) {
     gpio_set_level(PUMP_GPIO, 1);
-    vTaskDelay(WATER_DURATION * 10000);
+    printf("water delay start\n");
+    vTaskDelay(WATER_DURATION * 10 * portTICK_PERIOD_MS);
+    //pdMS_TO_TICKS(WATER_DURATION * 1000)
+    //WATER_DURATION * 10 * portTICK_PERIOD_MS)
+    printf("water delay done\n");
     gpio_set_level(PUMP_GPIO, 0);
 }
 
@@ -142,7 +151,9 @@ static void water(void) {
 static uint8_t measure_moisture_level(void) {
     int Dout;
     ESP_ERROR_CHECK(adc_oneshot_read(adc, ADC_CHANNEL, &Dout));
-    return (double) (MAX_READING - (Dout - MIN_READING)) / MAX_READING * MIN_READING;
+    printf("Dout: %d\n", Dout);
+    int range = MAX_READING - MIN_READING;
+    return (double) (range - (Dout - MIN_READING)) / range * 100;
 }
 
 // save moisture reading from snapshot to nvs
@@ -165,9 +176,9 @@ static uint8_t get_average_moisture_level(void) {
         // convert ket_get to C string char
         key_get[0] = i + '0';
         key_get[1] = '\0';
-        
         // checks nvs properly retrieves value at key_get and saves it in current_reading
         ESP_ERROR_CHECK(nvs_get_u8(flash_memory, key_get, &current_reading));
+        printf("key: %d, value: %d\n", i, current_reading);
         sum += current_reading;
     }
     return sum / NUM_READINGS;
@@ -185,5 +196,5 @@ void app_main(void) {
     reset_readings_storage();
     init_pump_gpio();
 
-    esp_timer_start_periodic(periodic_timer, 10 * 1000000); // 10 seconds for testing
+    esp_timer_start_periodic(periodic_timer, 5 * 1000000); // 5 seconds for testing
 }

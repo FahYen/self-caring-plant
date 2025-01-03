@@ -29,6 +29,8 @@ void app_main(void) {
         // set lower bound as 1200
         // upper bound as 3300
         // range = 3300 - 1200 = 2100;
+        // 2100 = (MAX_READING - MIN_READING)
+        // (double) ((MAX_READING - MIN_READING) - (Dout - (MAX_READING - MIN_READING))) / (MAX_READING - MIN_READING) * 100;
         ESP_ERROR_CHECK(adc_oneshot_read(adc_handle, ADC_CHANNEL, &Dout));
         printf("Reading: %d\n", Dout);
         int moisture_percent = (double) (2100 - (Dout - 1200)) / 2100 * 100;

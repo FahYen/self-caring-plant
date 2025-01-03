@@ -4,6 +4,7 @@
         "nvs_flash.h": "c",
         "freertos.h": "c",
         "nvs.h": "c",
-        "esp_err.h": "c"
+        "esp_err.h": "c",
+        "esp_timer.h": "c"
     }
 }

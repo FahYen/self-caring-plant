@@ -49,6 +49,8 @@ static void update_key(void) {
 
 // when it's time to check moisture level
 static void timer_callback(void* arg) {
+    printf("call back. Reading moisture level");
+
     // first read current moisture value
     uint8_t current_reading = read_moisture_sensor();
     // store the value into key
@@ -181,5 +183,5 @@ void app_main(void) {
     reset_readings_storage();
     configure_pump_pin();
 
-    esp_timer_start_periodic(periodic_timer, 10 * 1000000); // 10 seconds for testing
+    esp_timer_start_periodic(periodic_timer, 5 * 1000000); // 5 seconds for testing
 }
