@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "cstdint": "cpp",
+        "SAR_ADC.C": "cpp"
+    }
+}
