@@ -3,7 +3,7 @@
 
 void app_main(void) {
     init_auto_lighting_control();
-    init_auto_watering_system();
+    // init_auto_watering_system();
     start_auto_lighting_control();
-    start_auto_watering_system();
+    // start_auto_watering_system();
 }

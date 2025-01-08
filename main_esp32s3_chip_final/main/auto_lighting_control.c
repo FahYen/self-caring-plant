@@ -57,7 +57,7 @@ static void init_light_gpio(void) {
 
 // sets all light reading key-value pairs to maximum
 static void reset_readings_storage(void) {
-    char key_reset[3];
+    char key_reset[4];
     for (int i = 0; i < NUM_LIGHT_READINGS; i++) {
         sprintf(key_reset, "%d", i);
         ESP_ERROR_CHECK(nvs_set_u8(flash_memory, key_reset, 100));
