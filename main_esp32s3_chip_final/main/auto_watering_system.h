@@ -22,6 +22,7 @@
 #define NUM_MOISTURE_READINGS 6              // for taking 1 day's average
 #define MOISTURE_CHECK_INTERVAL ((uint64_t)12 * 60 * 60)  // Check every 12 hours in seconds
 
+
 void init_auto_watering_system(void);
 void start_auto_watering_system(void);
 

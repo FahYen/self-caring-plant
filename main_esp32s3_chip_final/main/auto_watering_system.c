@@ -36,7 +36,7 @@ static void init_water_storage(void) {
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
-    ESP_ERROR_CHECK(nvs_open("moisture_storage", NVS_READWRITE, &flash_memory));
+    ESP_ERROR_CHECK(nvs_open("moisture", NVS_READWRITE, &flash_memory));
 }
 
 // set up pump gpio

@@ -77,12 +77,14 @@ static void timer_callback(void* arg) {
     printf("average light level: %d\n", average_light_level);
     if (average_light_level < MIN_LIGHT_THRESHOLD) {
         turn_on_light();
+        esp_timer_stop(light_off_timer);
         ESP_ERROR_CHECK(esp_timer_start_once(light_off_timer, LIGHT_ON_DURATION * 1000000ULL));
     }
 }
 
 // callback to turn off light after duration
 static void light_off_callback(void* arg) {
+    printf("reached one shot timer call back");
     turn_off_light();
 }
 
