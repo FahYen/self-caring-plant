@@ -21,14 +21,33 @@ async function updateMoisture(models, idx, val) {
 }
 
 async function resetMoisture(models) {
-  mongoose.connect("mongodb+srv://zohrasin986:shx2025!@cluster0.hfrqo.mongodb.net/store")
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Connection error:', err));
   const article = await records.findOne({"key": "m"});
   article.data = [0, 0, 0, 0, 0, 0];
   await article.save();
   console.log(article);
 }
 
+async function resetLight(models) {
+  mongoose.connect("mongodb+srv://zohrasin986:shx2025!@cluster0.hfrqo.mongodb.net/store")
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Connection error:', err));
+  const article = await records.findOne({"key": "l"});
+  article.data = [0, 0, 0, 0, 0, 0];
+  await article.save();
+  console.log(article);
+}
+
+async function updateLight(models, idx, val) {
+  mongoose.connect("mongodb+srv://zohrasin986:shx2025!@cluster0.hfrqo.mongodb.net/store")
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Connection error:', err));
+  const article = await records.findOne({"key": "l"});
+  article.data[idx] = val;
+  await article.save();
+  console.log(article);
+  mongoose.disconnect();
+}
+
+resetLight(records);
 resetMoisture(records);
 updateMoisture(records, 2, 23);
